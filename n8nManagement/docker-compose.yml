@@ -1,0 +1,63 @@
+version: "3.9"
+
+volumes:
+    pgadmin_data:
+    db_storage1:
+
+networks:
+    laravel_network:
+        name: laravel_network
+
+
+services:    
+    php-apache:
+        image: webdevops/php-apache-dev:8.2-alpine
+        container_name: backendApiLaravel
+        restart: always
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/app
+        environment:
+            WEB_DOCUMENT_ROOT: /app/public
+        depends_on:
+            - postgresqldb-aula
+        networks:
+            laravel_network:
+                aliases:
+                    - backendApiLaravel
+
+    postgres:
+        image: postgres:latest
+        restart: always
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB}
+        volumes:
+            - db_storage1:/var/lib/postgresql/data
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+            interval: 5s
+            timeout: 5s
+            retries: 10
+
+        networks:
+            laravel_network:
+                aliases:
+                    - postgresql
+
+    pgadmin4:
+        image: dpage/pgadmin4
+        container_name: pgadmin4
+        environment:
+        - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+        - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+        ports:
+            - "8080:80"
+        volumes:
+        - pgadmin_data:/var/lib/pgadmin
+        networks:
+            laravel_network:
+                aliases:
+                    - pg-admin-4
