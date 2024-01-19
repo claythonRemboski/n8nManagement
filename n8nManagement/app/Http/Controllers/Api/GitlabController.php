@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class GitlabController extends Controller
 {
-    //
+    public function index()
+    {
+        return [];
+    }
 }

@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class N8NController extends Controller
 {
-    //
+    public function index()
+    {
+        return [];
+    }
 }
