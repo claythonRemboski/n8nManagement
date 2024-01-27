@@ -14,6 +14,10 @@ Route::get('/', function () {
 });
 
 Route::get('/users', [UserController::class, 'index']);
+Route::post('/users', [UserController::class, 'store']);
+
+
+
 Route::get('/n8n', [N8NController::class, 'index']);
 Route::get('/jira', [JiraController::class, 'index']);
 Route::get('/gitlab', [GitlabController::class, 'index']);
