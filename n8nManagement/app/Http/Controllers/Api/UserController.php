@@ -20,8 +20,15 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $data['password'] = bcrypt($request->password);
-        
+
         $user = User::create($data);
+
+        return new UserResource($user);
+    }
+
+    public function show(string $id)
+    {
+        $user = User::findOrFail($id);
 
         return new UserResource($user);
     }
