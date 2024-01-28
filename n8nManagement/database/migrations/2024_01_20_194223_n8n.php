@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('n8n_data', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('id')->unique();
+            $table->string('name');
+            $table->boolean('active')->default(true);
+            $table->timestampTz('createdAt')->nullable()->useCurrent(false);
+            $table->timestampTz('updatedAt')->nullable()->useCurrent(false);
         });
     }
 
