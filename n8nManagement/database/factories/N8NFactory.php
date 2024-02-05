@@ -23,8 +23,6 @@ class N8NFactory extends Factory
 
     public function definition(): array
     {
-        //faker para gerar dados aleatórios vindos de dentro de um array
-        $type = $this->faker->randomElement(['A', 'B', 'C']);
 
         $chave = 'EC-';
         $cardNumber = $this->faker->numberBetween(100, 350);
