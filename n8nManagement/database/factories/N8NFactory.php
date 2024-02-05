@@ -1,6 +1,9 @@
 <?php
 
+
 namespace Database\Factories;
+
+use App\Models\N8N;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,10 +17,28 @@ class N8NFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = N8N::class;
+
+
     public function definition(): array
     {
+        //faker para gerar dados aleatórios vindos de dentro de um array
+        $type = $this->faker->randomElement(['A', 'B', 'C']);
+
+        $chave = 'EC-';
+        $cardNumber = $this->faker->numberBetween(100, 350);
+        $cardId = $chave . $cardNumber;
+
+
         return [
-            //
+            'id' => $cardId,
+            'name' => $this->faker->company(),
+            'active' => $this->faker->boolean(),
+            'createdAt' => $this->faker->dateTimeThisDecade(),
+            'updatedAt' => $this->faker->dateTimeThisDecade(),
+            'comercialProject' => $this->faker->boolean(),
+
         ];
     }
 }
