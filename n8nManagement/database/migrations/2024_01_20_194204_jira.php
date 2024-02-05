@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jira_data', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('id')->unique();
+            $table->string('key');
+            $table->string('summary');
+            $table->timestampTz('startDate')->nullable()->useCurrent(false);
+            $table->timestampTz('resolutionDate')->nullable()->useCurrent(false);
+            $table->string('assignee');
+            $table->string('link');
         });
     }
 

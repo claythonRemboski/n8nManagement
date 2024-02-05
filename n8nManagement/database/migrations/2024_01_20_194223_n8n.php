@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('active')->default(true);
             $table->timestampTz('createdAt')->nullable()->useCurrent(false);
             $table->timestampTz('updatedAt')->nullable()->useCurrent(false);
+            $table->boolean('comercialProject')->default(true);
         });
     }
 
